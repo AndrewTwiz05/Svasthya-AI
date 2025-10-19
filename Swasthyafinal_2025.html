@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Svasthya AI - Dashboard</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons for a clean icon set -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide/dist/umd/lucide.min.js"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom styles to complement Tailwind */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        /* Active state for navigation links */
+        .nav-link.active {
+            background-color: #0ea5e9; /* sky-500 */
+            color: white;
+        }
+        .nav-link.active svg {
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <div class="flex h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col">
+            <div class="h-16 flex items-center px-6 border-b border-slate-200">
+                <div class="flex items-center gap-3">
+                     <!-- Svasthya AI Logo SVG -->
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25.9998 10.4C25.9998 7.3176 23.4822 4.8 20.3998 4.8C18.1574 4.8 16.2422 6.1304 15.4238 8.04H15.2022C14.7894 7.0264 14.1238 6.1304 13.2998 5.4C11.5574 3.916 8.8934 3.916 7.151 5.4C5.4086 6.884 5.3142 9.4016 6.9622 10.976L14.7174 18.064C15.0374 18.352 15.5622 18.352 15.8822 18.064L19.5542 14.744C19.8742 14.456 20.3998 14.456 20.7198 14.744C21.0398 15.032 21.0398 15.524 20.7198 15.812L15.8822 20.216C15.5622 20.504 15.0374 20.504 14.7174 20.216L6.019 12.32C4.1846 10.672 4.279 7.792 6.2446 6.144C7.575 4.9696 9.4894 4.7808 11.0638 5.728C11.683 6.1408 12.2086 6.7424 12.6214 7.4288C13.1382 6.4152 14.0854 5.6848 15.2022 5.6848H15.4238C15.9406 3.616 18.063 2.1328 20.3998 2.1328C24.8934 2.1328 28.6662 5.9056 28.6662 10.4C28.6662 12.048 28.1406 13.532 27.2942 14.7064L18.5014 24.32C17.171 25.804 14.8342 26.6496 12.3086 26.6496C9.78298 26.6496 7.44622 25.804 6.11582 24.32C2.82142 20.5472 4.09022 14.7064 8.74622 10.976L9.69342 11.8304C5.92062 15.1504 5.18942 19.8976 7.71502 22.84C8.66222 23.8536 10.0862 24.4552 11.6606 24.4552C13.235 24.4552 14.659 23.8536 15.6062 22.84L24.399 13.2304C25.3462 12.2168 25.9998 11.3624 25.9998 10.4Z" fill="url(#paint0_linear_1_2)"/>
+                        <defs>
+                            <linearGradient id="paint0_linear_1_2" x1="4" y1="2" x2="28" y2="26" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#38bdf8"/>
+                                <stop offset="1" stop-color="#34d399"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="text-xl font-bold text-slate-800">Svasthya AI</span>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 py-6 space-y-2">
+                <a href="#" class="nav-link flex items-center gap-3 px-4 py-2 rounded-lg text-slate-600 hover:bg-sky-100 hover:text-sky-600 transition-colors duration-200" data-page="dashboard">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-link flex items-center gap-3 px-4 py-2 rounded-lg text-slate-600 hover:bg-sky-100 hover:text-sky-600 transition-colors duration-200" data-page="readiness-plan">
+                    <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+                    <span>Readiness Plan</span>
+                </a>
+                <a href="#" class="nav-link flex items-center gap-3 px-4 py-2 rounded-lg text-slate-600 hover:bg-sky-100 hover:text-sky-600 transition-colors duration-200" data-page="staffing">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>Staffing</span>
+                </a>
+                <a href="#" class="nav-link flex items-center gap-3 px-4 py-2 rounded-lg text-slate-600 hover:bg-sky-100 hover:text-sky-600 transition-colors duration-200" data-page="supplies">
+                    <i data-lucide="package" class="w-5 h-5"></i>
+                    <span>Supplies</span>
+                </a>
+                <a href="#" class="nav-link flex items-center gap-3 px-4 py-2 rounded-lg text-slate-600 hover:bg-sky-100 hover:text-sky-600 transition-colors duration-200" data-page="communications">
+                    <i data-lucide="megaphone" class="w-5 h-5"></i>
+                    <span>Communications</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200">
+                <div class="flex items-center gap-3">
+                    <img src="https://placehold.co/40x40/e2e8f0/64748b?text=A" class="rounded-full" alt="Admin avatar">
+                    <div>
+                        <p class="font-semibold text-slate-700">Dr. Anjali Rao</p>
+                        <p class="text-sm text-slate-500">Administrator</p>
+                    </div>
+                    <button class="ml-auto text-slate-500 hover:text-slate-800">
+                        <i data-lucide="log-out" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <!-- Page: Dashboard -->
+            <div id="page-dashboard" class="page-content">
+                <header class="mb-8">
+                    <h1 class="text-3xl font-bold text-slate-800">Dashboard</h1>
+                    <p class="text-slate-500 mt-1" id="current-date">October 19, 2025</p>
+                </header>
+                
+                <!-- Key Metrics -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-start justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500 mb-1">Surge Alert Level</p>
+                            <p class="text-3xl font-bold text-red-500">High</p>
+                            <p class="text-xs text-slate-400 mt-2">Due to Diwali festival</p>
+                        </div>
+                        <div class="bg-red-100 text-red-500 p-2 rounded-full">
+                            <i data-lucide="siren" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-start justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500 mb-1">Predicted 24h Influx</p>
+                            <p class="text-3xl font-bold text-sky-500">~450</p>
+                            <p class="text-xs text-green-500 mt-2">+35% vs yesterday</p>
+                        </div>
+                        <div class="bg-sky-100 text-sky-500 p-2 rounded-full">
+                            <i data-lucide="trending-up" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-start justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500 mb-1">ER Capacity</p>
+                            <p class="text-3xl font-bold text-amber-500">85%</p>
+                            <p class="text-xs text-slate-400 mt-2">12 beds available</p>
+                        </div>
+                        <div class="bg-amber-100 text-amber-500 p-2 rounded-full">
+                            <i data-lucide="bed-double" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-start justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500 mb-1">Top Predicted Condition</p>
+                            <p class="text-xl font-bold text-emerald-500">Respiratory</p>
+                            <p class="text-xs text-slate-400 mt-2">Due to pollution spike</p>
+                        </div>
+                        <div class="bg-emerald-100 text-emerald-500 p-2 rounded-full">
+                            <i data-lucide="lungs" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="font-semibold text-slate-700 mb-4">Patient Influx Forecast (Next 7 Days)</h3>
+                        <canvas id="influxChart"></canvas>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="font-semibold text-slate-700 mb-4">Predicted Conditions</h3>
+                        <canvas id="conditionsChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Recent Alerts -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="font-semibold text-slate-700 mb-4">Recent System Alerts</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-lg">
+                            <div class="bg-red-100 text-red-500 p-2 rounded-full mt-1">
+                                <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-800">High Influx Alert: 40% increase in respiratory cases expected in 48h.</p>
+                                <p class="text-sm text-slate-500">Justification: Post-Diwali pollution spike. <span class="text-xs text-slate-400 ml-2">2 hours ago</span></p>
+                                <a href="#" data-page="staffing" class="text-sm font-semibold text-sky-600 hover:underline mt-1 inline-block">Review Staffing</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-lg">
+                            <div class="bg-amber-100 text-amber-500 p-2 rounded-full mt-1">
+                                <i data-lucide="package-search" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-800">Supply Alert: Nebulizer kits stock running low.</p>
+                                <p class="text-sm text-slate-500">Recommended action: Order 150 additional units. <span class="text-xs text-slate-400 ml-2">8 hours ago</span></p>
+                                <a href="#" data-page="supplies" class="text-sm font-semibold text-sky-600 hover:underline mt-1 inline-block">View Supply Chain</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page: Readiness Plan -->
+            <div id="page-readiness-plan" class="page-content hidden">
+                 <header class="mb-8">
+                    <h1 class="text-3xl font-bold text-slate-800">Operational Readiness Plan</h1>
+                    <p class="text-slate-500 mt-1">Summary of prioritized actions for the next 72 hours.</p>
+                </header>
+                <div class="space-y-6">
+                    <!-- Timeline Item -->
+                    <div class="flex gap-6">
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold">T-72h</div>
+                            <div class="w-0.5 flex-1 bg-slate-300"></div>
+                        </div>
+                        <div class="flex-1 pb-6">
+                            <h3 class="font-bold text-xl text-slate-800 mb-2">Supply Chain Actions</h3>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                                <p><span class="font-semibold">Action:</span> Pre-emptively order 150 nebulizer kits and 200 units of Salbutamol.</p>
+                                <p><span class="font-semibold">Justification:</span> Predicted surge in asthma and COPD cases.</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-semibold">Status:</span> 
+                                    <span class="bg-emerald-100 text-emerald-700 text-xs font-medium px-2.5 py-0.5 rounded-full">Order Placed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Timeline Item -->
+                    <div class="flex gap-6">
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold">T-48h</div>
+                             <div class="w-0.5 flex-1 bg-slate-300"></div>
+                        </div>
+                        <div class="flex-1 pb-6">
+                            <h3 class="font-bold text-xl text-slate-800 mb-2">Staffing Adjustments</h3>
+                             <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                                <p><span class="font-semibold">Action:</span> Add 2 ER nurses and 1 respiratory therapist to evening shifts for the weekend.</p>
+                                <p><span class="font-semibold">Justification:</span> Expected patient influx to exceed normal capacity by 40%.</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-semibold">Status:</span> 
+                                    <span class="bg-amber-100 text-amber-700 text-xs font-medium px-2.5 py-0.5 rounded-full">Pending HR Approval</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Timeline Item -->
+                    <div class="flex gap-6">
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 bg-sky-500 text-white rounded-full flex items-center justify-center font-bold">T-24h</div>
+                        </div>
+                         <div class="flex-1 pb-6">
+                            <h3 class="font-bold text-xl text-slate-800 mb-2">Communications</h3>
+                             <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                                <p><span class="font-semibold">Action:</span> Send public health advisory regarding high pollution levels.</p>
+                                <p><span class="font-semibold">Channels:</span> SMS, Hospital App, Social Media.</p>
+                                 <div class="flex items-center gap-2">
+                                    <span class="font-semibold">Status:</span> 
+                                    <span class="bg-slate-200 text-slate-600 text-xs font-medium px-2.5 py-0.5 rounded-full">Scheduled</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page: Staffing -->
+            <div id="page-staffing" class="page-content hidden">
+                <header class="mb-8">
+                    <h1 class="text-3xl font-bold text-slate-800">Staffing Recommendations</h1>
+                    <p class="text-slate-500 mt-1">Review and action AI-driven staffing suggestions.</p>
+                </header>
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 border-b border-slate-200">
+                            <tr>
+                                <th class="p-4 text-sm font-semibold text-slate-600">Department</th>
+                                <th class="p-4 text-sm font-semibold text-slate-600">Date / Shift</th>
+                                <th class="p-4 text-sm font-semibold text-slate-600">Current Staff</th>
+                                <th class="p-4 text-sm font-semibold text-slate-600">Recommended</th>
+                                <th class="p-4 text-sm font-semibold text-slate-600">Justification</th>
+                                <th class="p-4 text-sm font-semibold text-slate-600">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr>
+                                <td class="p-4 font-medium">Emergency Room</td>
+                                <td class="p-4 text-slate-600">Oct 20 / Evening</td>
+                                <td class="p-4 text-slate-600">8 Nurses, 2 Doctors</td>
+                                <td class="p-4 font-bold text-green-600">+2 Nurses</td>
+                                <td class="p-4 text-slate-600 text-sm">Predicted 40% influx increase</td>
+                                <td class="p-4 space-x-2">
+                                    <button class="px-3 py-1 text-sm bg-sky-500 text-white rounded-md hover:bg-sky-600">Approve</button>
+                                    <button class="px-3 py-1 text-sm bg-slate-200 text-slate-700 rounded-md hover:bg-slate-300">Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-medium">Respiratory Therapy</td>
+                                <td class="p-4 text-slate-600">Oct 20 / All Day</td>
+                                <td class="p-4 text-slate-600">3 Therapists</td>
+                                <td class="p-4 font-bold text-green-600">+1 Therapist</td>
+                                <td class="p-4 text-slate-600 text-sm">High asthma case prediction</td>
+                                <td class="p-4 space-x-2">
+                                    <button class="px-3 py-1 text-sm bg-sky-500 text-white rounded-md hover:bg-sky-600">Approve</button>
+                                    <button class="px-3 py-1 text-sm bg-slate-200 text-slate-700 rounded-md hover:bg-slate-300">Reject</button>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td class="p-4 font-medium">ICU</td>
+                                <td class="p-4 text-slate-600">Oct 21 / Night</td>
+                                <td class="p-4 text-slate-600">4 Nurses, 1 Doctor</td>
+                                <td class="p-4 text-slate-500">No Change</td>
+                                <td class="p-4 text-slate-600 text-sm">Critical cases influx normal</td>
+                                <td class="p-4 space-x-2">
+                                     <span class="text-sm text-slate-400">No action needed</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Page: Supplies -->
+            <div id="page-supplies" class="page-content hidden">
+                <header class="mb-8">
+                    <h1 class="text-3xl font-bold text-slate-800">Supply Chain Management</h1>
+                    <p class="text-slate-500 mt-1">Proactive recommendations to prevent stockouts.</p>
+                </header>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="font-semibold text-lg text-slate-800 mb-4">Pharmaceuticals</h3>
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-amber-400 pl-4">
+                                <p class="font-medium">Salbutamol Inhalers</p>
+                                <p class="text-sm text-slate-500">Current Stock: 120 units</p>
+                                <p class="text-sm font-semibold text-sky-600">Recommended Order: 200 units</p>
+                            </div>
+                            <div class="border-l-4 border-red-400 pl-4">
+                                <p class="font-medium">Antiviral Medication (Type A)</p>
+                                <p class="text-sm text-slate-500">Current Stock: 50 units (Critically Low)</p>
+                                <p class="text-sm font-semibold text-sky-600">Recommended Order: 150 units</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="font-semibold text-lg text-slate-800 mb-4">Medical Equipment</h3>
+                         <div class="space-y-4">
+                            <div class="border-l-4 border-amber-400 pl-4">
+                                <p class="font-medium">Nebulizer Kits</p>
+                                <p class="text-sm text-slate-500">Current Stock: 85 units</p>
+                                <p class="text-sm font-semibold text-sky-600">Recommended Order: 150 units</p>
+                            </div>
+                             <div class="border-l-4 border-emerald-400 pl-4">
+                                <p class="font-medium">Ventilators</p>
+                                <p class="text-sm text-slate-500">Status: All operational, no issues</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="font-semibold text-lg text-slate-800 mb-4">General Supplies</h3>
+                         <div class="space-y-4">
+                            <div class="border-l-4 border-emerald-400 pl-4">
+                                <p class="font-medium">N95 Masks</p>
+                                <p class="text-sm text-slate-500">Current Stock: 5,000+ (Sufficient)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page: Communications -->
+            <div id="page-communications" class="page-content hidden">
+                <header class="mb-8">
+                    <h1 class="text-3xl font-bold text-slate-800">Communications Hub</h1>
+                    <p class="text-slate-500 mt-1">Manage internal alerts and public health advisories.</p>
+                </header>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800 mb-4">Internal Staff Alerts</h2>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                            <div class="p-4 border border-slate-200 rounded-lg">
+                                <p class="font-semibold">Subject: High Patient Influx Expected</p>
+                                <p class="text-sm text-slate-600 mt-1">"Team, Svasthya AI predicts a 40% increase in patient volume this weekend due to festival activities. All ER and Respiratory staff, please be prepared for high-demand shifts. Department heads to review staffing..."</p>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <button class="px-3 py-1 text-sm bg-sky-500 text-white rounded-md hover:bg-sky-600">Send Now</button>
+                                    <button class="px-3 py-1 text-sm bg-slate-200 text-slate-700 rounded-md hover:bg-slate-300">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div>
+                        <h2 class="text-xl font-bold text-slate-800 mb-4">Public Health Advisories</h2>
+                         <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                            <div class="p-4 border border-slate-200 rounded-lg">
+                                <p class="font-semibold">Subject: Health Advisory: High Air Pollution</p>
+                                <div class="mt-2 space-y-2 text-sm text-slate-600">
+                                    <p><span class="font-semibold text-slate-700">English:</span> "Air quality in Mumbai is poor. Elderly & those with breathing issues are advised to stay indoors."</p>
+                                    <p><span class="font-semibold text-slate-700">Hindi:</span> "मुंबई में हवा की गुणवत्ता खराब है। बुजुर्गों और सांस की समस्या वाले लोगों को घर के अंदर रहने की सलाह दी जाती है।"</p>
+                                    <p><span class="font-semibold text-slate-700">Marathi:</span> "मुंबईतील हवेची गुणवत्ता खराब आहे. वृद्ध आणि श्वसनाच्या समस्या असलेल्या लोकांना घरातच राहण्याचा सल्ला दिला जातो."</p>
+                                </div>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <button class="px-3 py-1 text-sm bg-sky-500 text-white rounded-md hover:bg-sky-600">Schedule Send</button>
+                                    <button class="px-3 py-1 text-sm bg-slate-200 text-slate-700 rounded-md hover:bg-slate-300">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // --- Initialize Icons ---
+    lucide.createIcons();
+
+    // --- Page Navigation Logic ---
+    const navLinks = document.querySelectorAll('.nav-link');
+    const pageContents = document.querySelectorAll('.page-content');
+    const pageLinks = document.querySelectorAll('a[data-page]');
+
+    function showPage(pageId) {
+        pageContents.forEach(page => {
+            if (page.id === `page-${pageId}`) {
+                page.classList.remove('hidden');
+            } else {
+                page.classList.add('hidden');
+            }
+        });
+
+        navLinks.forEach(link => {
+            if (link.dataset.page === pageId) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        window.scrollTo(0, 0); // Scroll to top on page change
+    }
+    
+    // Event listeners for all navigation links
+    pageLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pageId = e.currentTarget.dataset.page;
+            showPage(pageId);
+        });
+    });
+
+    // --- Date Display ---
+    const dateElement = document.getElementById('current-date');
+    if (dateElement) {
+        const today = new Date('2025-10-19T12:00:00Z'); // Set a fixed date for demo
+        dateElement.textContent = today.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
+
+    // --- Chart.js Implementation ---
+    // Mock Data for Charts
+    const influxData = {
+        labels: ['Today', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        datasets: [{
+            label: 'Predicted Patients',
+            data: [450, 480, 510, 490, 460, 550, 600],
+            backgroundColor: 'rgba(14, 165, 233, 0.1)',
+            borderColor: 'rgb(14, 165, 233)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4
+        }]
+    };
+
+    const conditionsData = {
+        labels: ['Respiratory', 'Gastrointestinal', 'Trauma', 'Cardiac', 'Other'],
+        datasets: [{
+            label: 'Patient Conditions',
+            data: [45, 20, 15, 10, 10],
+            backgroundColor: [
+                '#10b981', // emerald-500
+                '#f59e0b', // amber-500
+                '#ef4444', // red-500
+                '#3b82f6', // blue-500
+                '#64748b'  // slate-500
+            ],
+            hoverOffset: 4
+        }]
+    };
+
+    // Render Influx Chart
+    const influxCtx = document.getElementById('influxChart');
+    if (influxCtx) {
+        new Chart(influxCtx, {
+            type: 'line',
+            data: influxData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+
+    // Render Conditions Chart
+    const conditionsCtx = document.getElementById('conditionsChart');
+    if (conditionsCtx) {
+        new Chart(conditionsCtx, {
+            type: 'doughnut',
+            data: conditionsData,
+             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                 plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+    }
+    
+    // --- Initial Page Load ---
+    showPage('dashboard');
+});
+</script>
+
+</body>
+</html>
+
