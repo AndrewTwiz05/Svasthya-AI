@@ -41,7 +41,7 @@ Here's a look at our interactive frontend prototype which demonstrates the core 
 <img src="https://github.com/user-attachments/assets/d51c790f-b24c-49aa-ac6a-b04d6045ae8f" alt="Svasthya AI Dashboard Screenshot"/>
 </div>
 
-You can access the live interactive prototype here: [Insert Your GitHub Pages or Vercel Link Here]
+You can access the live interactive prototype here: https://andrewtwiz05.github.io/Svasthya-AI/
 
 🛠️ Technology Stack
 
