@@ -1,0 +1,6 @@
+Python
+pycache/ *.pyc .env venv/
+Node
+node_modules/ .DS_Store
+IDE config files
+.idea/ .vscode/
