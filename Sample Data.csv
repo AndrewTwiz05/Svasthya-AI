@@ -1,0 +1,11 @@
+date,event_type,pollution_aqi,predicted_influx,predicted_primary_illness,actual_influx
+2025-10-15,normal,110,280,gastro,275
+2025-10-16,normal,125,300,gastro,310
+2025-10-17,normal,140,320,respiratory,315
+2025-10-18,diwali_eve,210,400,respiratory,
+2025-10-19,diwali,350,450,respiratory,
+2025-10-20,diwali_post,410,510,respiratory,
+2025-10-21,normal,320,480,respiratory,
+2025-10-22,normal,280,420,respiratory,
+2025-10-23,normal,210,350,gastro,
+2025-10-24,normal,180,310,trauma,
