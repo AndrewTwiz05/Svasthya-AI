@@ -1,7 +1,7 @@
 # Svasthya-AI
 Svasthya AI is a proactive, agentic AI system designed to be an intelligent operations partner for hospital administrators. It transforms hospital management from a reactive state of emergency into a calm, data-driven, and forward-looking process.
 <div align="center">
-<img src="https://www.google.com/search?q=https://i.imgur.com/wV2y9f1.png" alt="Svasthya AI Logo" width="150"/>
+<img src="https://github.com/user-attachments/assets/61aceb71-8a8b-4497-9643-65365224531d" alt="Svasthya AI Logo" width="150"/>
 <h1>Svasthya AI</h1>
 <p><b>Predict. Prepare. Protect.</b></p>
 <p><i>A submission for MumbaiHacks 2025 - Healthtech Track</i></p>
@@ -38,7 +38,7 @@ ConnectSphere: Automates and tailors communications.
 
 Here's a look at our interactive frontend prototype which demonstrates the core user experience of the Svasthya AI dashboard.
 <div align="center">
-<img src="https://www.google.com/search?q=https://i.imgur.com/example-screenshot.png" alt="Svasthya AI Dashboard Screenshot"/>
+<img src="https://github.com/user-attachments/assets/d51c790f-b24c-49aa-ac6a-b04d6045ae8f" alt="Svasthya AI Dashboard Screenshot"/>
 </div>
 
 You can access the live interactive prototype here: [Insert Your GitHub Pages or Vercel Link Here]
